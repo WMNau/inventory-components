@@ -6,7 +6,7 @@ function QuickView({ itemData, onClose }) {
   return (
     <Modal>
       <Details>
-        <button onClick={onClose}>X</button>
+        <CloseButton onClick={onClose}>X</CloseButton>
 
         <p>Name: {itemData.name}</p>
         <p>Amount: {itemData.amount}</p>
@@ -18,24 +18,29 @@ function QuickView({ itemData, onClose }) {
   );
 }
 
+const CloseButton = styled.button`
+  float: right;
+`;
+
 const Details = styled.div`
   background-color: #a39bb0;
   font-size: 18px;
-  left: 250px;
+  left: 40%;
   margin: 0 auto;
   padding: 24px;
   position: absolute;
-  top: 250px;
+  top: 25%;
   width: 30%;
 `;
 
 const Modal = styled.div`
-  position: fixed;
-  top: 0;
+  background: rgba(0, 0, 0, 0.85);
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  z-index: 10;
 `;
 
 QuickView.propTypes = {

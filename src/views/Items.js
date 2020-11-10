@@ -1,37 +1,43 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 
 import ItemList from "../components/ItemList";
 import { ModalContext } from "../layouts/MainLayout";
+import { getData } from "./Users";
 
 function Items() {
   const modalFunctions = useContext(ModalContext);
+
+  const [itemsData, setItemsData] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const res = await getData(
+        "https://fakerapi.it/api/v1/custom?_quantity=7&amount=counter&name=pokemon&date=date&location=word&description=text"
+      );
+
+      setItemsData(res.data);
+    }
+
+    fetchData();
+  }, []);
+
   const columns = [
     {
       title: "Items",
       field: "name"
     },
     {
+      title: "Amount",
+      field: "amount",
+      type: "numeric"
+    },
+    {
       title: "Date",
       field: "date"
-    }
-  ];
-
-  const data = [
-    {
-      name: "trash bags",
-      date: new Date().toLocaleDateString()
     },
     {
-      name: "trash bags",
-      date: new Date().toLocaleDateString()
-    },
-    {
-      name: "trash bags",
-      date: new Date().toLocaleDateString()
-    },
-    {
-      name: "trash bags",
-      date: new Date().toLocaleDateString()
+      title: "Location",
+      field: "location"
     }
   ];
 
@@ -39,7 +45,7 @@ function Items() {
     <div>
       <ItemList
         columns={columns}
-        data={data}
+        data={itemsData}
         showDetails={(rowData) => {
           modalFunctions.setIsModalOpen(true);
           modalFunctions.setItemData(rowData);
