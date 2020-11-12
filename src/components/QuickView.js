@@ -1,4 +1,3 @@
-import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
@@ -45,7 +44,7 @@ const Modal = styled.div`
 
 QuickView.propTypes = {
   itemData: PropTypes.object,
-  onClose: PropTypes.func
+  onClose: PropTypes.func.isRequired
 };
 
 export default QuickView;

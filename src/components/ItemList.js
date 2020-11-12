@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 
 import MaterialTable from "material-table";
@@ -14,7 +14,7 @@ function ItemList({ columns, data, title, showDetails }) {
           {
             icon: () => <ViewIcon />,
             tooltip: "View Details",
-            onClick: (_e, rowData) => showDetails(rowData)
+            onClick: (_event, rowData) => showDetails(rowData)
           }
         ]}
       />
@@ -31,5 +31,12 @@ const ViewIcon = styled.div`
   height: 20px;
   width: 50px;
 `;
+
+ItemList.propTypes = {
+  columns: PropTypes.array,
+  data: PropTypes.array,
+  title: PropTypes.string,
+  showDetails: PropTypes.func
+};
 
 export default ItemList;

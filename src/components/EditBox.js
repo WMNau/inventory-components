@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 
 function EditBox({ name, date, description, onClose, type }) {
@@ -12,8 +13,10 @@ function EditBox({ name, date, description, onClose, type }) {
 
       <form>
         <FormField>
-          <label>Name:</label>
+          <label htmlFor="formName">Name:</label>
           <input
+            id="formName"
+            aria-required="false"
             type="text"
             value={formName}
             onChange={(name = setFormName(name))}
@@ -21,8 +24,10 @@ function EditBox({ name, date, description, onClose, type }) {
         </FormField>
 
         <FormField>
-          <label>Date:</label>
+          <label htmlFor="formDate">Date:</label>
           <input
+            id="formDate"
+            aria-required="false"
             type="text"
             value={formDate}
             onChange={(date = setFormDate(date))}
@@ -30,8 +35,10 @@ function EditBox({ name, date, description, onClose, type }) {
         </FormField>
 
         <FormField>
-          <label>Description:</label>
+          <label htmlFor="formDescription">Description:</label>
           <input
+            id="formDescription"
+            aria-required="false"
             type="text"
             value={formDescription}
             onChange={(description = setFormDescription(description))}
@@ -66,7 +73,7 @@ async function updateData(url = "", data = {}) {
   return response.json();
 }
 
-const Container = styled.div`
+const Container = styled.section`
   border: 1px solid #a39bb0;
   margin: 24px auto 0 auto;
   width: 50%;
@@ -80,5 +87,13 @@ const FormField = styled.div`
     font-size: 16px;
   }
 `;
+
+EditBox.propTypes = {
+  name: PropTypes.string,
+  date: PropTypes.string,
+  description: PropTypes.string,
+  onClose: PropTypes.func.isRequired,
+  type: PropTypes.string.isRequired
+};
 
 export default EditBox;

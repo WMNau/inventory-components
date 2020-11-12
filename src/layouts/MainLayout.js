@@ -1,4 +1,4 @@
-import React, { useState, createContext } from "react";
+import { useState, createContext } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
@@ -44,8 +44,8 @@ const MainContainer = styled.main`
   height: 90vh;
 `;
 
-const Container = styled.div`
-  border-left: 1px solid #ccc;
+const Container = styled.section`
+  border-left: 2px solid #ccc;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
