@@ -1,8 +1,9 @@
 import { useContext, useState, useEffect } from "react";
+import styled from "styled-components";
 
 import ItemList from "../components/ItemList";
 import { ModalContext } from "../layouts/MainLayout";
-import { getData } from "./Users";
+import { getData } from "../utils/util";
 
 function Items() {
   const modalFunctions = useContext(ModalContext);
@@ -22,37 +23,29 @@ function Items() {
   }, []);
 
   const columns = [
-    {
-      title: "Items",
-      field: "name"
-    },
-    {
-      title: "Amount",
-      field: "amount",
-      type: "numeric"
-    },
-    {
-      title: "Date",
-      field: "date"
-    },
-    {
-      title: "Location",
-      field: "location"
-    }
+    { title: "Items", field: "name" },
+    { title: "Amount", field: "amount", type: "numeric" },
+    { title: "Get by date", field: "date" },
+    { title: "Location", field: "location" }
   ];
 
   return (
-    <div>
+    <ListContainer>
       <ItemList
         columns={columns}
         data={itemsData}
+        title="Main List"
         showDetails={(rowData) => {
           modalFunctions.setIsModalOpen(true);
           modalFunctions.setItemData(rowData);
         }}
       />
-    </div>
+    </ListContainer>
   );
 }
+
+const ListContainer = styled.div`
+  padding-bottom: 48px;
+`;
 
 export default Items;

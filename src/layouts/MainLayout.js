@@ -45,7 +45,7 @@ const MainContainer = styled.main`
 `;
 
 const Container = styled.section`
-  border-left: 2px solid #ccc;
+  border-left: 2px solid #2b486a;
   display: flex;
   flex-direction: column;
   margin: 0 auto;

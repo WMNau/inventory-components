@@ -34,13 +34,13 @@ function Header() {
   );
 }
 
-const H2 = styled.h2`
-  font-size: 30px;
-`;
-
 const HeaderContainer = styled.header`
   border-bottom: 2px solid #2b486a;
   margin-bottom: 24px;
+`;
+
+const H2 = styled.h2`
+  font-size: 30px;
 `;
 
 export default Header;

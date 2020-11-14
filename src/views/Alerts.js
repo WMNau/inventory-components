@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import RowContainer from "../components/RowContainer";
-import { getData } from "./Users";
+import { getData } from "../utils/util";
 
 function Alerts() {
   const [alertsData, setAlertsData] = useState([]);
@@ -10,7 +10,7 @@ function Alerts() {
   useEffect(() => {
     async function fetchData() {
       const res = await getData(
-        "https://fakerapi.it/api/v1/custom?_quantity=9&name=upc&date=date&description=text"
+        "https://fakerapi.it/api/v1/custom?_quantity=11&name=upc&date=date&description=text"
       );
 
       setAlertsData(res.data);
@@ -20,13 +20,13 @@ function Alerts() {
   }, []);
 
   return (
-    <div>
+    <>
       {alertsData.map((alert) => (
         <SmallPadding key={alert.name}>
           <RowContainer rowData={alert} type="alert" />
         </SmallPadding>
       ))}
-    </div>
+    </>
   );
 }
 

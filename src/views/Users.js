@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import RowContainer from "../components/RowContainer";
+import { getData } from "../utils/util";
 
 function Users() {
   const [usersData, setUsersData] = useState([]);
@@ -27,14 +28,6 @@ function Users() {
       ))}
     </>
   );
-}
-
-export async function getData(url = "") {
-  const response = await fetch(url, {
-    method: "GET"
-  });
-
-  return response.json();
 }
 
 const SmallPadding = styled.div`

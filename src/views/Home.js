@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 
 import Summary from "../components/Summary";
 import ItemList from "../components/ItemList";
-import { getData } from "./Users";
+import { getData } from "../utils/util";
 import { ModalContext } from "../layouts/MainLayout";
 
 function Home() {
@@ -23,22 +23,10 @@ function Home() {
   }, []);
 
   const columns = [
-    {
-      title: "Item",
-      field: "name"
-    },
-    {
-      title: "Amount",
-      field: "amount"
-    },
-    {
-      title: "Get By Date",
-      field: "date"
-    },
-    {
-      title: "Location",
-      field: "location"
-    }
+    { title: "Item", field: "name" },
+    { title: "Amount", field: "amount" },
+    { title: "Get By Date", field: "date" },
+    { title: "Location", field: "location" }
   ];
 
   return (

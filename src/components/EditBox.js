@@ -2,6 +2,8 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
+import { CloseButton, SaveButton } from "./Buttons";
+
 function EditBox({ name, date, description, onClose, type }) {
   const [formName, setFormName] = useState(name || "");
   const [formDate, setFormDate] = useState(date || new Date());
@@ -9,7 +11,7 @@ function EditBox({ name, date, description, onClose, type }) {
 
   return (
     <Container>
-      <button onClick={onClose}>X</button>
+      <CloseButton onClick={onClose}>X</CloseButton>
 
       <form>
         <FormField>
@@ -19,7 +21,7 @@ function EditBox({ name, date, description, onClose, type }) {
             aria-required="false"
             type="text"
             value={formName}
-            onChange={(name = setFormName(name))}
+            onChange={(name) => setFormName(name)}
           />
         </FormField>
 
@@ -30,7 +32,7 @@ function EditBox({ name, date, description, onClose, type }) {
             aria-required="false"
             type="text"
             value={formDate}
-            onChange={(date = setFormDate(date))}
+            onChange={(date) => setFormDate(date)}
           />
         </FormField>
 
@@ -41,11 +43,11 @@ function EditBox({ name, date, description, onClose, type }) {
             aria-required="false"
             type="text"
             value={formDescription}
-            onChange={(description = setFormDescription(description))}
+            onChange={(description) => setFormDescription(description)}
           />
         </FormField>
 
-        <button
+        <SaveButton
           onClick={async () => {
             await updateData(`https://fakedata.io/api/v1/${type}`, {
               formName,
@@ -55,7 +57,7 @@ function EditBox({ name, date, description, onClose, type }) {
           }}
         >
           Save
-        </button>
+        </SaveButton>
       </form>
     </Container>
   );
@@ -75,7 +77,8 @@ async function updateData(url = "", data = {}) {
 
 const Container = styled.section`
   border: 1px solid #a39bb0;
-  margin: 24px auto 0 auto;
+  margin: 24px auto;
+  padding: 12px;
   width: 50%;
 `;
 

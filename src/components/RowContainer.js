@@ -1,8 +1,8 @@
+import { useState } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
 import EditBox from "./EditBox";
-import { useState } from "react";
 
 function RowContainer({ rowData, type }) {
   const [showEditBox, setShowEditBox] = useState(false);
@@ -50,7 +50,7 @@ const EditButton = styled.button`
 
 RowContainer.propTypes = {
   rowData: PropTypes.object,
-  type: PropTypes.string
+  type: PropTypes.string.isRequired
 };
 
 export default RowContainer;

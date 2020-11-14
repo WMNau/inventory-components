@@ -10,6 +10,7 @@ function Summary() {
           <p>5</p>
         </Link>
       </Flex>
+
       <Flex>
         <p>Alerts: </p>
         <Link to="/alerts">

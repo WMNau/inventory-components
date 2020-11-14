@@ -1,13 +1,13 @@
 import { Suspense, lazy } from "react";
 import { Switch, Route } from "react-router-dom";
 
-const Activities = lazy(() => import("./views/Activities"));
-const Alerts = lazy(() => import("./views/Alerts"));
 const Home = lazy(() => import("./views/Home"));
 const Items = lazy(() => import("./views/Items"));
+const Alerts = lazy(() => import("./views/Alerts"));
+const Activities = lazy(() => import("./views/Activities"));
 const Users = lazy(() => import("./views/Users"));
 
-function Routes(props) {
+function Routes() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <Switch>
