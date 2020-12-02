@@ -4,13 +4,18 @@ import styled from "styled-components";
 
 import EditBox from "./EditBox";
 
-function RowContainer({ rowData, type }) {
+function RowContainer({ rowData, updateData, deleteData }) {
   const [showEditBox, setShowEditBox] = useState(false);
 
   return (
     <>
       <Container>
         <EditButton onClick={() => setShowEditBox(true)}>Edit</EditButton>
+        <EditButton
+          onClick={() => deleteData({ variables: { id: rowData.id } })}
+        >
+          Delete
+        </EditButton>
 
         <p>Name: {rowData.name}</p>
         <p>Date: {rowData.date}</p>
@@ -19,10 +24,8 @@ function RowContainer({ rowData, type }) {
 
       {showEditBox && (
         <EditBox
-          name={rowData.name}
-          date={rowData.date}
-          description={rowData.description}
-          type={type}
+          {...rowData}
+          updateData={updateData}
           onClose={() => setShowEditBox(false)}
         />
       )}
@@ -50,7 +53,8 @@ const EditButton = styled.button`
 
 RowContainer.propTypes = {
   rowData: PropTypes.object,
-  type: PropTypes.string.isRequired
+  updateData: PropTypes.func.isRequired,
+  deleteData: PropTypes.func.isRequired
 };
 
 export default RowContainer;

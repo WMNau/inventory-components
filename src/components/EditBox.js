@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import { CloseButton, SaveButton } from "./Buttons";
 
-function EditBox({ name, date, description, onClose, type }) {
+function EditBox({ id, name, date, description, onClose, updateData }) {
   const [formName, setFormName] = useState(name || "");
   const [formDate, setFormDate] = useState(date || new Date());
   const [formDescription, setFormDescription] = useState(description || "");
@@ -13,7 +13,18 @@ function EditBox({ name, date, description, onClose, type }) {
     <Container>
       <CloseButton onClick={onClose}>X</CloseButton>
 
-      <form>
+      <form
+        onSubmit={() => {
+          updateData({
+            variables: {
+              id,
+              name: formName,
+              date: formDate,
+              description: formDescription
+            }
+          });
+        }}
+      >
         <FormField>
           <label htmlFor="formName">Name:</label>
           <input
@@ -47,32 +58,10 @@ function EditBox({ name, date, description, onClose, type }) {
           />
         </FormField>
 
-        <SaveButton
-          onClick={async () => {
-            await updateData(`https://fakedata.io/api/v1/${type}`, {
-              formName,
-              formDate,
-              formDescription
-            });
-          }}
-        >
-          Save
-        </SaveButton>
+        <SaveButton type="submit">Save</SaveButton>
       </form>
     </Container>
   );
-}
-
-async function updateData(url = "", data = {}) {
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content=Type": "application/json"
-    },
-    body: JSON.stringify(data)
-  });
-
-  return response.json();
 }
 
 const Container = styled.section`
@@ -96,7 +85,7 @@ EditBox.propTypes = {
   date: PropTypes.string,
   description: PropTypes.string,
   onClose: PropTypes.func.isRequired,
-  type: PropTypes.string.isRequired
+  updateData: PropTypes.func.isRequired
 };
 
 export default EditBox;

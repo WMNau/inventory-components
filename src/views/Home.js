@@ -1,26 +1,90 @@
-import { useState, useEffect, useContext } from "react";
+import { useContext, useState } from "react";
+import { gql, useQuery, useMutation } from "@apollo/client";
 
 import Summary from "../components/Summary";
 import ItemList from "../components/ItemList";
-import { getData } from "../utils/util";
 import { ModalContext } from "../layouts/MainLayout";
+
+const ITEMS_LIST = gql`
+  query {
+    getItems {
+      name
+      amount
+      date
+      location
+    }
+  }
+`;
+
+const CREATE_ITEM = gql`
+  mutation createItem(
+    $name: String
+    $date: String
+    $amount: Int
+    $location: String
+  ) {
+    createItem(
+      input: { name: $name, date: $date, amount: $amount, location: $location }
+    ) {
+      id
+      name
+      date
+      amount
+      location
+    }
+  }
+`;
+
+const UPDATE_ITEM = gql`
+  mutation updateItem(
+    $id: ID
+    $name: String
+    $date: String
+    $amount: Int
+    $location: String
+  ) {
+    updateItem(
+      input: {
+        id: $id
+        name: $name
+        date: $date
+        amount: $amount
+        location: $location
+      }
+    ) {
+      id
+      name
+      date
+      amount
+      location
+    }
+  }
+`;
+
+const DELETE_ITEM = gql`
+  mutation deleteItem($id: ID) {
+    deleteItem(id: $id)
+  }
+`;
 
 function Home() {
   const modalFunctions = useContext(ModalContext);
 
-  const [itemsData, setItemsData] = useState([]);
+  const { loading, error, data } = useQuery(ITEMS_LIST);
 
-  useEffect(() => {
-    async function fetchData() {
-      const res = await getData(
-        "https://fakerapi.it/api/v1/custom?_quantity=7&amount=counter&name=pokemon&date=date&location=word&description=text"
-      );
+  const [createItem] = useMutation(CREATE_ITEM);
+  const [updateItem] = useMutation(UPDATE_ITEM);
+  const [deleteItem] = useMutation(DELETE_ITEM);
 
-      setItemsData(res.data);
-    }
+  const editableData = data?.getItems.map((item) => ({ ...item }));
 
-    fetchData();
-  }, []);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>ERROR: {error.message}</div>;
+  }
 
   const columns = [
     { title: "Item", field: "name" },
@@ -34,7 +98,8 @@ function Home() {
       <Summary />
       <ItemList
         columns={columns}
-        data={itemsData}
+        isLoading={loading}
+        data={editableData}
         title="Home List"
         showDetails={(rowData) => {
           modalFunctions.setIsModalOpen(true);
